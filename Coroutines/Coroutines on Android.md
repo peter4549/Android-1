@@ -7,3 +7,12 @@
 coroutines are a great solution to two common programming problems:
 1. **Long running tasks** are tasks that take too long to block the main thread.
 2. **Main-safety** allows you to ensure that any suspend function can be called from the main thread.
+
+> A leaked coroutine can waste memory, CPU, disk, or even launch a network request that’s not needed.
+
+To help avoid leaking coroutines, Kotlin introduced **[structured concurrency](https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency)**. Structured concurrency is a combination of language features and best practices that, when followed, help you keep track of all work running in coroutines.
+
+On Android, we can use structured concurrency to do three things:
+1. **Cancel work** when it is no longer needed.
+2. **Keep track** of work while it’s running.
+3. **Signal errors** when a coroutine fails.
