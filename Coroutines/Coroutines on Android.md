@@ -34,3 +34,5 @@ Kotlin just doesn’t let you create an untracked coroutine
 > Structured concurrency guarantees when a scope cancels, all of its coroutines cancel.
 
 To use coroutines in a `ViewModel`, you can use the `viewModelScope` [extension property](https://khan.github.io/kotlin-for-python-developers/#extension-functionsproperties) from `lifecycle-viewmodel-ktx:2.1.0-alpha04`.
+
+`viewModelScope` will automatically cancel any coroutine that is started by this `ViewModel` when it is cleared (when the `onCleared()` callback is called).
