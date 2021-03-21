@@ -10,7 +10,7 @@ coroutines are a great solution to two common programming problems:
 
 > A leaked coroutine can waste memory, CPU, disk, or even launch a network request that’s not needed.
 
-To help avoid leaking coroutines, Kotlin introduced <u>**[structured concurrency](https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency)**</u>. Structured concurrency is a combination of language features and best practices that, when followed, help you keep track of all work running in coroutines.
+To help avoid leaking coroutines, Kotlin introduced <U>**[structured concurrency](https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency)**</U>. Structured concurrency is a combination of language features and best practices that, when followed, help you keep track of all work running in coroutines.
 
 On Android, we can use structured concurrency to do three things:
 1. **Cancel work** when it is no longer needed.
