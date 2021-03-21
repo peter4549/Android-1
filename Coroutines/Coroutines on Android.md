@@ -16,3 +16,6 @@ On Android, we can use structured concurrency to do three things:
 1. **Cancel work** when it is no longer needed.
 2. **Keep track** of work while it’s running.
 3. **Signal errors** when a coroutine fails.
+
+### Cancel work with scopes
+> A CoroutineScope keeps track of all your coroutines, and it can cancel all of the coroutines started in it.
