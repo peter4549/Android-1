@@ -23,3 +23,5 @@ On Android, we can use structured concurrency to do three things:
 #### Starting new coroutines
 1. [**launch**](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) builder will start a new coroutine that is “fire and forget” — that means it won’t return the result to the caller.
 2. [**async**](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) builder will start a new coroutine, and it allows you to return a result with a suspend function called `await`.
+
+> Launch is a bridge from regular functions into coroutines.
