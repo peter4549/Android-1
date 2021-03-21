@@ -10,7 +10,7 @@ coroutines are a great solution to two common programming problems:
 
 > A leaked coroutine can waste memory, CPU, disk, or even launch a network request that’s not needed.
 
-To help avoid leaking coroutines, Kotlin introduced **[structured concurrency](https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency)**. Structured concurrency is a combination of language features and best practices that, when followed, help you keep track of all work running in coroutines.
+To help avoid leaking coroutines, Kotlin introduced [**structured concurrency**](https://kotlinlang.org/docs/coroutines-basics.html#structured-concurrency). Structured concurrency is a combination of language features and best practices that, when followed, help you keep track of all work running in coroutines.
 
 On Android, we can use structured concurrency to do three things:
 1. **Cancel work** when it is no longer needed.
@@ -21,5 +21,5 @@ On Android, we can use structured concurrency to do three things:
 > A CoroutineScope keeps track of all your coroutines, and it can cancel all of the coroutines started in it.
 
 #### Starting new coroutines
-1. [**launch**]() [launch]()builder will start a new coroutine that is “fire and forget” — that means it won’t return the result to the caller.
-2. async builder will start a new coroutine, and it allows you to return a result with a suspend function called `await`.
+1. [**launch**](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) builder will start a new coroutine that is “fire and forget” — that means it won’t return the result to the caller.
+2. [**async**](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) builder will start a new coroutine, and it allows you to return a result with a suspend function called `await`.
