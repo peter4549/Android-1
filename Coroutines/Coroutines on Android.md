@@ -29,3 +29,6 @@ On Android, we can use structured concurrency to do three things:
 *Warning*: A big difference between `launch` and `async` is how they handle exceptions. `async` expects that you will eventually call `await` to get a result (or exception) so it won’t throw exceptions by default. That means if you use `async` to start a new coroutine it will silently drop exceptions.
 
 Kotlin just doesn’t let you create an untracked coroutine
+
+#### Start in the ViewModel
+> Structured concurrency guarantees when a scope cancels, all of its coroutines cancel.
