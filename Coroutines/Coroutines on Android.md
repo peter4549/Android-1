@@ -25,3 +25,5 @@ On Android, we can use structured concurrency to do three things:
 2. [**async**](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) builder will start a new coroutine, and it allows you to return a result with a suspend function called `await`.
 
 > Launch is a bridge from regular functions into coroutines.
+
+*Warning*: A big difference between `launch` and `async` is how they handle exceptions. `async` expects that you will eventually call `await` to get a result (or exception) so it won’t throw exceptions by default. That means if you use `async` to start a new coroutine it will silently drop exceptions.
