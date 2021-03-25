@@ -43,3 +43,8 @@ Coroutines are a general purpose programming language feature at the same level 
 
 1. **One shot requests** are requests that are run each time they are called — they always complete after the result is ready.
 2. **Streaming requests** are requests that continue to observe changes and report them to caller — they don’t complete when the first result is ready.
+
+### One shot requests
+A one shot request is performed once each time it’s called and completes as soon as a result is ready. This pattern is the same as a regular function call — it gets called, does some work, then returns.
+
+> A one shot request is performed each time it’s called. It stops executing as soon as a result is ready.
