@@ -36,3 +36,10 @@ Kotlin just doesn’t let you create an untracked coroutine
 To use coroutines in a `ViewModel`, you can use the `viewModelScope` [extension property](https://khan.github.io/kotlin-for-python-developers/#extension-functionsproperties) from `lifecycle-viewmodel-ktx:2.1.0-alpha04`.
 
 `viewModelScope` will automatically cancel any coroutine that is started by this `ViewModel` when it is cleared (when the `onCleared()` callback is called).
+
+## [Coroutines On Android (part III): real work](https://medium.com/androiddevelopers/coroutines-on-android-part-iii-real-work-2ba8a2ec2f45)
+### Solving real-world problems with coroutines
+Coroutines are a general purpose programming language feature at the same level as functions — so you can use them to implement anything that you could with functions and objects. However, there are two types of tasks that come up all the time in real code that coroutines are a great solution for:
+
+1. **One shot requests** are requests that are run each time they are called — they always complete after the result is ready.
+2. **Streaming requests** are requests that continue to observe changes and report them to caller — they don’t complete when the first result is ready.
