@@ -48,3 +48,5 @@ Coroutines are a general purpose programming language feature at the same level 
 A one shot request is performed once each time it’s called and completes as soon as a result is ready. This pattern is the same as a regular function call — it gets called, does some work, then returns.
 
 > A one shot request is performed each time it’s called. It stops executing as soon as a result is ready.
+
+### Problem: Displaying a sorted list
