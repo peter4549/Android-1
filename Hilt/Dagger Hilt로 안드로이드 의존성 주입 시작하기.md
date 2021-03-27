@@ -30,3 +30,7 @@ Dagger Hilt에서는 `@HiltAndroidApp` 어노테이션을 사용하여 컴파일
 @HiltAndroidApp
 class HakunaApplication : Application()
 ```
+
+## Component hierachy
+기존의 Dagger2는 개발자가 직접 필요한 component들을 작성하고 상속 관계를 정의했다면, Hilt에서는 Android 환경에서 표준적으로 사용되는 component들을 기본적으로 제공하고 있습니다. 또한 Hilt 내부적으로 제공하는 component들의 전반적인 라이프 사이클 또한 자동으로 관리해주기 때문에 사용자가 초기 DI 환경을 구축하는데 드는 비용을 최소화하고 있습니다. 다음은 Hilt에서 제공하는 표준 component hierarchy 입니다.
+![hilt-component](https://hyperconnect.github.io/assets/2020-07-14-android-dagger-hilt/hilt-component.png)
