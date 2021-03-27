@@ -89,3 +89,17 @@ interface UserComponent {
 ![hilt-custom-component](https://hyperconnect.github.io/assets/2020-07-14-android-dagger-hilt/hilt-custom-component.png)
 
 사용자 component는 반드시 leaf component로써 표준 component에 추가될 수 있으며, 2개의 layer에 침범하는 형태의 사용자 정의는 불가능합니다. (ApplicationComponent의 subcomponent이면서 동시에 ActivityRetainedComponent의 parent component인 형태는 불가능)
+
+## Hilt Modules
+기존의 Dagger2에서는 새로운 module을 생성하면, 사용자가 정의한 component에 해당 module 클래스를 직접 include 해주는 방법이었습니다. 반면, Hilt는 표준적으로 제공하는 component 들이 이미 존재하기 때문에 `@InstallIn` 어노테이션을 사용하여 표준 component에 module들을 install 할 수 있습니다. Hilt에서 제공하는 기본적인 규칙은 모든 module에 `@InstallIn` 어노테이션을 사용하여 어떤 component에 install 할지 반드시 정해주어야 합니다. 아래 예시는 `FooModule` 이라는 module을 `ApplicationComponent`에 install하고, `ApplicationComponent`에서 제공해주는 `Application` class를 내부적으로 활용하고 있습니다.
+
+```
+@Module
+@InstallIn(ApplicationComponent::class)
+object class FooModule {
+  // @InstallIn(ApplicationComponent.class) module providers have access to
+  // the Application binding.
+  @Provides
+  fun provideBar(app: Application): Bar {...}
+}
+```
