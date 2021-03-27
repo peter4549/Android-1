@@ -35,3 +35,15 @@ class HakunaApplication : Application()
 기존의 Dagger2는 개발자가 직접 필요한 component들을 작성하고 상속 관계를 정의했다면, Hilt에서는 Android 환경에서 표준적으로 사용되는 component들을 기본적으로 제공하고 있습니다. 또한 Hilt 내부적으로 제공하는 component들의 전반적인 라이프 사이클 또한 자동으로 관리해주기 때문에 사용자가 초기 DI 환경을 구축하는데 드는 비용을 최소화하고 있습니다. 다음은 Hilt에서 제공하는 표준 component hierarchy 입니다.
 
 ![hilt-component](https://hyperconnect.github.io/assets/2020-07-14-android-dagger-hilt/hilt-component.png)
+
+Hilt에서 표준적으로 제공하는 Component, 관련 Scope, 생성 및 파괴 시점은 아래와 같습니다.
+
+|          Compoent         |          Scope          |       Created at       |       Destroyed at      |
+|:-------------------------:|:-----------------------:|:----------------------:|:-----------------------:|
+|    ApplicationComponent   |        @Singleton       | Application#onCreate() | Application#onDestroy() |
+| ActivityRetainedComponent | @ActivityRetainedScoped |   Activity#onCreate()  |   Activity#onDestroy()  |
+|     ActivityComponent     |     @ActivityScoped     |   Activity#onCreate()  |   Activity#onDestroy()  |
+|     FragmentComponent     |     @FragmentScoped     |   Fragment#onAttach()  |   Fragment#onDestroy()  |
+|       ViewComponent       |       @ViewScoped       |      View#super()      |      View destroyed     |
+| ViewWithFragmentComponent |       @ViewScoped       |      View#super()      |      View destroyed     |
+|      ServiceComponent     |      @ServiceScoped     |   Service#onCreate()   |   Service#onDestroy()   |
