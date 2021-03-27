@@ -7,3 +7,19 @@ Koin은 사용이 간결하지만 엄밀하게 의존성 주입(Dependency Injec
 
 ## New weapon: 🗡 Dagger Hilt
 Dagger Hilt는 2020년 6월 Google에서 오피셜하게 발표한 Android 전용 DI 라이브러리입니다. Hilt는 Dagger2를 기반으로 Android Framework에서 표준적으로 사용되는 DI component와 scope를 기본적으로 제공하여, 초기 DI 환경 구축 비용을 크게 절감시키는 것이 가장 큰 목적입니다. 따라서 기존에 불가피하게 작성해야 했던 보일러 플레이트를 대량 줄이고 프로젝트의 전반적인 readability를 향상함으로써, 유지보수 면에서도 큰 이득을 취할 수 있습니다. 그뿐만 아니라, Google에서 전격적으로 지원하는 Jetpack의 ViewModel에 대한 의존성 주입도 별도의 큰 비용 없이 구현할 수 있습니다.
+
+## Gradle Setup
+아래의 코드를 project-level의 `build.gradle` 파일에 추가합니다.
+```
+classpath 'com.google.dagger:hilt-android-gradle-plugin:2.28-alpha'
+```
+app-level의 `build.gradle` 파일 상단에 아래의 plugin을 추가합니다.
+```
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+```
+app-level의 `build.gradle` 파일 하단에 아래의 의존성을 추가합니다.
+```
+implementation "com.google.dagger:hilt-android:2.28.1-alpha"
+kapt "com.google.dagger:hilt-android-compiler:2.28.1-alpha"
+```
