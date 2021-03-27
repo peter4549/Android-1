@@ -23,3 +23,10 @@ app-level의 `build.gradle` 파일 하단에 아래의 의존성을 추가합니
 implementation "com.google.dagger:hilt-android:2.28.1-alpha"
 kapt "com.google.dagger:hilt-android-compiler:2.28.1-alpha"
 ```
+
+## Hilt Application
+Dagger Hilt에서는 `@HiltAndroidApp` 어노테이션을 사용하여 컴파일 타임 시 표준 컴포넌트 빌딩에 필요한 클래스들을 초기화합니다. 따라서 Hilt 셋업을 위해서 필수적으로 요구되는 과정입니다. 아래는 `Application` class를 상속받고 있는 `HakunaApplication` 이라는 클래스에 `@HiltAndroidApp` 를 추가한 예시입니다.
+```
+@HiltAndroidApp
+class HakunaApplication : Application()
+```
