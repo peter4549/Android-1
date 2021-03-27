@@ -83,3 +83,7 @@ interface UserComponent {
     }
 }
 ```
+
+`@DefineComponent` 어노테이션에서 예상할 수 있듯이, 사용자 정의되는 component들은 반드시 표준 컴포넌트 중 하나를 부모 컴포넌트로써 상속받아야 합니다.
+
+![hilt-custom-component](https://hyperconnect.github.io/assets/2020-07-14-android-dagger-hilt/hilt-custom-component.png)
