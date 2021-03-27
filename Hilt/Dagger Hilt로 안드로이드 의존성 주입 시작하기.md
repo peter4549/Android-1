@@ -10,15 +10,19 @@ Dagger Hilt는 2020년 6월 Google에서 오피셜하게 발표한 Android 전�
 
 ## Gradle Setup
 아래의 코드를 project-level의 `build.gradle` 파일에 추가합니다.
+
 ```
 classpath 'com.google.dagger:hilt-android-gradle-plugin:2.28-alpha'
 ```
+
 app-level의 `build.gradle` 파일 상단에 아래의 plugin을 추가합니다.
+
 ```
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 ```
 app-level의 `build.gradle` 파일 하단에 아래의 의존성을 추가합니다.
+
 ```
 implementation "com.google.dagger:hilt-android:2.28.1-alpha"
 kapt "com.google.dagger:hilt-android-compiler:2.28.1-alpha"
@@ -26,6 +30,7 @@ kapt "com.google.dagger:hilt-android-compiler:2.28.1-alpha"
 
 ## Hilt Application
 Dagger Hilt에서는 `@HiltAndroidApp` 어노테이션을 사용하여 컴파일 타임 시 표준 컴포넌트 빌딩에 필요한 클래스들을 초기화합니다. 따라서 Hilt 셋업을 위해서 필수적으로 요구되는 과정입니다. 아래는 `Application` class를 상속받고 있는 `HakunaApplication` 이라는 클래스에 `@HiltAndroidApp` 를 추가한 예시입니다.
+
 ```
 @HiltAndroidApp
 class HakunaApplication : Application()
@@ -51,9 +56,30 @@ Hilt에서 표준적으로 제공하는 Component, 관련 Scope, 생성 및 파�
 각 component 들은 생성 시점부터 파괴되기 이전까지 member injection이 가능합니다. 각 컴포넌트의 자신만의 lifetime을 갖습니다.
 
 * ApplicationComponent - Application 전체의 생명주기를 lifetime으로 갖습니다. Application이 생성되는(onCreate) 시점에 함께 생성되고, Application이 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
-* ActivityRetainedComponent - ApplicationComponent의 하위 컴포넌트로써, Activity의 생명주기를 lifetime으로 갖습니다. 다만, Activity의 configuration change(디바이스 화면전환 등) 시에는 파괴되지 않고 유지됩니다.
-* ActivityComponent - ActivityRetainedComponen의 하위 컴포넌트로써, Activity의 생명주기를 lifetime으로 갖습니다. Activity가 생성되는(onCreate) 시점에 함께 생성되고, Activity가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
-* FragmentComponent - ActivityComponent의 하위 컴포넌트로써, Fragment의 생명주기를 lifetime으로 갖습니다. Fragment가 Activity에 붙는순간(onAttach) 시점에 함께 함께 생성되고, Fragment가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
-* ViewComponent - ActivityComponent의 하위 컴포넌트로써, View의 생명주기를 lifetime으로 갖습니다. View가 생성되는 시점에 함께 생성되고, 파괴되는 시점에 함께 파괴됩니다.
-* ViewWithFragmentComponent - FragmentComponent의 하위 컴포넌트로써, Fragment의 view 생명주기를 lifetime으로 갖습니다. View가 생성되는 시점에 함께 생성되고, 파괴되는 시점에 함께 파괴됩니다.
-* ServiceComponent - ApplicationComponent의 하위 컴포넌트로써, Service의 생명주기를 lifetime으로 갖습니다. Service가 생성되는(onCreate) 시점에 함께 생성되고, Service가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
+* ActivityRetainedComponent - `ApplicationComponent`의 하위 컴포넌트로써, Activity의 생명주기를 lifetime으로 갖습니다. 다만, Activity의 configuration change(디바이스 화면전환 등) 시에는 파괴되지 않고 유지됩니다.
+* ActivityComponent - `ActivityRetainedComponent`의 하위 컴포넌트로써, Activity의 생명주기를 lifetime으로 갖습니다. Activity가 생성되는(onCreate) 시점에 함께 생성되고, Activity가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
+* FragmentComponent - `ActivityComponent`의 하위 컴포넌트로써, Fragment의 생명주기를 lifetime으로 갖습니다. Fragment가 Activity에 붙는순간(onAttach) 시점에 함께 함께 생성되고, Fragment가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
+* ViewComponent - `ActivityComponent`의 하위 컴포넌트로써, View의 생명주기를 lifetime으로 갖습니다. View가 생성되는 시점에 함께 생성되고, 파괴되는 시점에 함께 파괴됩니다.
+* ViewWithFragmentComponent - `FragmentComponent`의 하위 컴포넌트로써, Fragment의 view 생명주기를 lifetime으로 갖습니다. View가 생성되는 시점에 함께 생성되고, 파괴되는 시점에 함께 파괴됩니다.
+* ServiceComponent - `ApplicationComponent`의 하위 컴포넌트로써, Service의 생명주기를 lifetime으로 갖습니다. Service가 생성되는(onCreate) 시점에 함께 생성되고, Service가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
+
+위와 같은 표준 component/scope들을 Hilt에서는 제공하고 있으며, 새로운 component를 정의하고 싶다면 `@DefineComponent` 어노테이션을 사용하여 사용자 정의가 가능합니다. 아래는 `LoggedUserScope`라는 사용자 scope를 정의하고, 해당 scope를 사용하여 `UserComponent`라는 새로운 component를 만든 예시입니다.
+
+```
+@Scope
+@MustBeDocumented
+@Retention(value = AnnotationRetention.RUNTIME)
+annotation class LoggedUserScope
+
+@LoggedUserScope
+@DefineComponent(parent = ApplicationComponent::class)
+interface UserComponent {
+
+    // Builder to create instances of UserComponent
+    @DefineComponent.Builder
+    interface Builder {
+        fun setUser(@BindsInstance user: User): UserComponent.Builder
+        fun build(): UserComponent
+    }
+}
+```
