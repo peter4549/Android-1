@@ -47,3 +47,13 @@ Hilt에서 표준적으로 제공하는 Component, 관련 Scope, 생성 및 파�
 |       ViewComponent       |       @ViewScoped       |      View#super()      |      View destroyed     |
 | ViewWithFragmentComponent |       @ViewScoped       |      View#super()      |      View destroyed     |
 |      ServiceComponent     |      @ServiceScoped     |   Service#onCreate()   |   Service#onDestroy()   |
+
+각 component 들은 생성 시점부터 파괴되기 이전까지 member injection이 가능합니다. 각 컴포넌트의 자신만의 lifetime을 갖습니다.
+
+* ApplicationComponent - Application 전체의 생명주기를 lifetime으로 갖습니다. Application이 생성되는(onCreate) 시점에 함께 생성되고, Application이 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
+* ActivityRetainedComponent - ApplicationComponent의 하위 컴포넌트로써, Activity의 생명주기를 lifetime으로 갖습니다. 다만, Activity의 configuration change(디바이스 화면전환 등) 시에는 파괴되지 않고 유지됩니다.
+* ActivityComponent - ActivityRetainedComponen의 하위 컴포넌트로써, Activity의 생명주기를 lifetime으로 갖습니다. Activity가 생성되는(onCreate) 시점에 함께 생성되고, Activity가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
+* FragmentComponent - ActivityComponent의 하위 컴포넌트로써, Fragment의 생명주기를 lifetime으로 갖습니다. Fragment가 Activity에 붙는순간(onAttach) 시점에 함께 함께 생성되고, Fragment가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
+* ViewComponent - ActivityComponent의 하위 컴포넌트로써, View의 생명주기를 lifetime으로 갖습니다. View가 생성되는 시점에 함께 생성되고, 파괴되는 시점에 함께 파괴됩니다.
+* ViewWithFragmentComponent - FragmentComponent의 하위 컴포넌트로써, Fragment의 view 생명주기를 lifetime으로 갖습니다. View가 생성되는 시점에 함께 생성되고, 파괴되는 시점에 함께 파괴됩니다.
+* ServiceComponent - ApplicationComponent의 하위 컴포넌트로써, Service의 생명주기를 lifetime으로 갖습니다. Service가 생성되는(onCreate) 시점에 함께 생성되고, Service가 파괴되는(onDestroy) 시점에 함께 파괴됩니다.
