@@ -103,3 +103,14 @@ object class FooModule {
   fun provideBar(app: Application): Bar {...}
 }
 ```
+
+만약 하나의 module을 다중의 component에 install 하고 싶다면 아래와 같이 여러 개의 component를 install 할 수 있습니다.
+
+```
+@InstallIn({ViewComponent.class, ViewWithFragmentComponent.class})
+```
+
+이처럼 다중 component에 하나의 module을 install 하는 데는 세 가지 규칙이 있습니다.
+* Provider는 다중 component가 모두 동일한 scope에 속해있을 경우에만 scope를 지정할 수 있습니다. 위의 예시와 같이 `ViewComponent`와 `ViewWithFragmentComponent`는 동일한 `ViewScoped`에 속해있기 때문에, provider에게 동일한 `ViewScoped`를 지정할 수 있습니다.
+* Provider는 다중 component가 서로 간 요소에게 접근이 가능한 경우에만 주입이 가능합니다. 가령 `ViewComponent`와 `ViewWithFragmentComponent`는 서로 간의 요소에 접근이 가능하기 때문에 View에게 주입이 가능하지만, `FragmentComponent` 와 `ServiceComponent` 는 `Fragment` 또는 `Service`에게 주입이 불가능합니다.
+* 부모 component와 자식 compoent에 동시에 install 될 수 없으며, 자식 component는 부모 component의 module에 대한 접근 할 수 있습니다.
