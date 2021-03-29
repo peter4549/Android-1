@@ -168,3 +168,12 @@ class MainActivity : AppCompatActivity() {
     // ... //
 }
 ```
+
+## Jetpack ViewModel
+Hilt는 기본적으로 Jetpack에서 제공하는 ViewModel에 대한 의존성 주입을 제공하기 때문에, Jetpack의 ViewModel을 사용하시는 분들께는 좋은 소식입니다. ViewModel Injection을 위해서 app-level의 `build.gradle` 파일 하단에 아래의 의존성을 추가합니다.
+
+```
+implementation "androidx.hilt:hilt-common:1.0.0-alpha01"
+implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
+kapt "androidx.hilt:hilt-compiler:1.0.0-alpha01"
+```
