@@ -111,8 +111,60 @@ object class FooModule {
 ```
 
 이처럼 다중 component에 하나의 module을 install 하는 데는 세 가지 규칙이 있습니다.
+
 * Provider는 다중 component가 모두 동일한 scope에 속해있을 경우에만 scope를 지정할 수 있습니다. 위의 예시와 같이 `ViewComponent`와 `ViewWithFragmentComponent`는 동일한 `ViewScoped`에 속해있기 때문에, provider에게 동일한 `ViewScoped`를 지정할 수 있습니다.
 * Provider는 다중 component가 서로 간 요소에게 접근이 가능한 경우에만 주입이 가능합니다. 가령 `ViewComponent`와 `ViewWithFragmentComponent`는 서로 간의 요소에 접근이 가능하기 때문에 View에게 주입이 가능하지만, `FragmentComponent` 와 `ServiceComponent` 는 `Fragment` 또는 `Service`에게 주입이 불가능합니다.
 * 부모 component와 자식 compoent에 동시에 install 될 수 없으며, 자식 component는 부모 component의 module에 대한 접근 할 수 있습니다.
 
 ## AndroidEntryPoint
+기존의 Dagger2에서는 직접 의존성을 주입해줄 대상을 전부 dependency graph에 지정해주었다면, Hilt에서는 객체를 주입할 대상에게 `@AndroidEntryPoint` 어노테이션을 추가하는 것만으로도 member injection을 수행할 수 있습니다. `@AndroidEntryPoint`을 추가할 수 있는 Android component는 아래와 같습니다.
+
+* Activity
+* Fragment
+* View
+* Service
+* BroadcastReceiver
+
+아래는 MainActivity에 `Bar` 객체를 주입하는 간단한 예시입니다.
+
+```
+@AndroidEntryPoint
+class MyActivity : MyBaseActivity() {
+  // Bindings in ApplicationComponent or ActivityComponent
+  @Inject lateinit var bar: Bar
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    // Injection happens in super.onCreate().
+    super.onCreate()
+
+    // Do something with bar ...
+  }
+}
+```
+
+## EntryPoint
+Hilt의 또 다른 장점은 Dagger에 의해 관리되는 의존성 객체를 injection이 아닌 `EntryPoint`를 통해서 얻을 수 있습니다. Module과 유사하게 `InstallIn` 어노테이션을 사용하여 install 하려는 component를 지정하고, `@EntryPoint` 어노테이션을 추가합니다. 아래의 예시는 `Retrofit` 객체 획득을 위한 EntryPoint interface 작성 예시입니다.
+
+```
+@EntryPoint
+@InstallIn(ApplicationComponent::class)
+interface RetrofitInterface {
+
+    fun getRetrofit(): Retrofit
+}
+```
+
+아래는 `MainActivity`에서 `Retrofit` 객체를 injection이 아닌 `EntryPoint`를 통해 얻어오는 예시입니다.
+
+```
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    val retrofit = EntryPoints.get(applicationContext, RetrofitInterface::class.java).getRetrofit()
+    
+    // ... //
+}
+```
