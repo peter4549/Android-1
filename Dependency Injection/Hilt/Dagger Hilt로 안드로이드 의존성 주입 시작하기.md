@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-ViewModel에서 [`SavedStateHandle`](https://developer.android.com/topic/libraries/architecture/viewmodel-savedstate)를 주입받으려면 아래와 같이 `@Assisted` 어노테이션이 사용됩니다.
+ViewModel에서 [`SavedStateHandle`](https://developer.android.com/topic/libraries/architecture/viewmodel-savedstate)를 주입받으려면 아래와 같이 `@Assisted` 어노테이션이 사용됩니다.  
 [SavedStateHandle을 다뤄봅니다](https://pluu.github.io/blog/android/2020/02/20/savedstatehandle/)
 
 ```
