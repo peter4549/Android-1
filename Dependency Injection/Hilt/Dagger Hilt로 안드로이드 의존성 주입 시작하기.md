@@ -181,6 +181,9 @@ kapt "androidx.hilt:hilt-compiler:1.0.0-alpha01"
 ## ViewModel Injection
 Jetpack에서 소개된 ViewModel은 Android SDK 내부적으로 ViewModel에 대한 lifecycle을 관리하고 있습니다. 따라서 ViewModel의 생성 또한 Jetpack에서 제공하는 `ViewModelFactory` 를 통해서 이루어져야 합니다. 기존에는 각자 ViewModel 환경에 맞는 `ViewModelFactory`를 따로 작성하였거나, Dagger-Android 유저들은 ViewModel의 constructor injection을 위해 글로벌한 `ViewModelFactory`를 작성하여 사용하였습니다. Hilt에서는 이러한 보일러 플레이트를 줄이기 위한 `ViewModelFactory`가 이미 내부에 정의되어있고, `ActivityComponent`와 `FragmentComponent`에 자동으로 install 됩니다. 아래의 `@ViewModelInject` 어노테이션을 사용하여 constructor injection을 수행한 예시입니다.
 
+### [Dagger Hilt 'Assisted' and 'ViewModelInject' is deprecated. in Dagger Hilt View Model 1.0.0-alpha03](https://stackoverflow.com/questions/66185820/dagger-hilt-assisted-and-viewmodelinject-is-deprecated-in-dagger-hilt-view)
+#### https://stackoverflow.com/a/66185853/15002852
+
 ```
 class HakunaViewModel @ViewModelInject constructor(
   private val bar: Bar
