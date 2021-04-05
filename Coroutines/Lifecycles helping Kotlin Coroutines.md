@@ -14,7 +14,7 @@ ViewModel에서 사용할 수 있는 CoroutineScope입니다.
 사용하려면 아래처럼 KTX 라이브러리를 설치해야 합니다.
 
 <pre>
-implementation "androidx.lifecycle:**lifecycle-viewmodel-ktx**:$version"
+implementation "androidx.lifecycle:<b>lifecycle-viewmodel-ktx</b>:$version"
 </pre>
 
 `onCleared()`가 호출되면 중지됩니다.
