@@ -23,27 +23,27 @@ implementation "androidx.lifecycle:<b>lifecycle-viewmodel-ktx</b>:$version"
 ViewModel을 사용하지 않는다면, LifecycleScope를 고려해볼 수 있습니다. Activity, Fragment 같은 [LifecycleOwner](https://developer.android.com/reference/androidx/lifecycle/LifecycleOwner) 구현체에서 사용할 수 있습니다.  
 사용하려면 아래처럼 KTX 라이브러리를 설치해야 합니다.
 
-```
-implementation "androidx.lifecycle:lifecycle-runtime-ktx:$version"
-```
+<pre>
+implementation "androidx.lifecycle:<b>lifecycle-viewmodel-ktx</b>:$version"
+</pre>
 
 `DESTROYED` 상태가 되면 중지됩니다.
 
-```
+<pre>
 class MyActivity : AppCompatActivity() {
   private fun method() {
-    lifecycleScope.launch {
+    <b><i>lifecycleScope.</i></b>launch {
       doSomething()
     }
   }
 }
-```
+</pre>
 
 주의해야 할 점은 Fragment는 2개의 Lifecycle이 있으므로 LifecycleOwner를 잘 선택해줘야 합니다. 대부분의 경우에는 ***viewLifecycleOwner***를 사용하는 것을 권장드립니다.
 <pre>
 class MyFragment : Fragment() {
   private fun method() {
-    viewLifecycleOwner.lifecycleScope.launch {
+    <b><i>viewLifecycleOwner.lifecycleScope.</i></b>launch {
       doSomething()
     }
   }
