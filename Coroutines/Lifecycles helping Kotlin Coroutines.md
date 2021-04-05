@@ -40,3 +40,12 @@ class MyActivity : AppCompatActivity() {
 ```
 
 주의해야 할 점은 Fragment는 2개의 Lifecycle이 있으므로 LifecycleOwner를 잘 선택해줘야 합니다. 대부분의 경우에는 ***viewLifecycleOwner***를 사용하는 것을 권장드립니다.
+<pre>
+class MyFragment : Fragment() {
+  private fun method() {
+    viewLifecycleOwner.lifecycleScope.launch {
+      doSomething()
+    }
+  }
+}
+</pre>
