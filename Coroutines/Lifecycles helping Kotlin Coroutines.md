@@ -13,9 +13,9 @@ Lifecycle은 Android Platform에서 직접 제공하는 라이브러리로, KTX�
 ViewModel에서 사용할 수 있는 CoroutineScope입니다.  
 사용하려면 아래처럼 KTX 라이브러리를 설치해야 합니다.
 
-```
-implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
-```
+<pre>
+implementation "androidx.lifecycle:**lifecycle-viewmodel-ktx**:$version"
+</pre>
 
 `onCleared()`가 호출되면 중지됩니다.
 
