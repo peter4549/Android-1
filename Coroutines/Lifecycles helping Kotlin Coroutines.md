@@ -118,8 +118,8 @@ view.<b><i>findViewTreeLifecycleOwner</i></b>()?.lifecycleScope?.launch {
 ### 정리
 사용처에 따른 API를 매치하고 마무리하겠습니다.
 
-* Activity, Fragment — <pre>lifecycleScope</pre>
-* View (in ⍺)— <code>ViewTreeLifecycleOwner</code> + <code>lifecycleScope</code>
-* ViewModel — <pre>viewModelScope</pre>
-* Service — <pre>LifecycleService</pre> + <pre>lifecycleScope</pre>
-* Application — <pre>ProcessLifecycleOwner</pre> + <pre>lifecycleScope</pre>
+* Activity, Fragment — <code><b>lifecycleScope</b></code>
+* View (in ⍺)— <code><b>ViewTreeLifecycleOwner</b></code> + <code><b>lifecycleScope</b></code>
+* ViewModel — <code><b>viewModelScope</b></code>
+* Service — <code><b>LifecycleService</b></code> + <code><b>lifecycleScope</b></code>
+* Application — <code><b>ProcessLifecycleOwner</b></code> + <code><b>lifecycleScope</b></code>
