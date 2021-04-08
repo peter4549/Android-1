@@ -33,6 +33,7 @@ implementation "androidx.lifecycle:<b>lifecycle-viewmodel-ktx</b>:$version"
 
 <pre>
 class MyActivity : AppCompatActivity() {
+
   private fun method() {
     <b><i>lifecycleScope.</i></b>launch {
       doSomething()
@@ -44,6 +45,7 @@ class MyActivity : AppCompatActivity() {
 ⚠️ 주의해야 할 점은 Fragment는 2개의 Lifecycle이 있으므로 LifecycleOwner를 잘 선택해줘야 합니다. 대부분의 경우에는 ***viewLifecycleOwner***를 사용하는 것을 권장드립니다.
 <pre>
 class MyFragment : Fragment() {
+
   private fun method() {
     <b><i>viewLifecycleOwner.lifecycleScope.</i></b>launch {
       doSomething()
@@ -116,8 +118,8 @@ view.<b><i>findViewTreeLifecycleOwner</i></b>()?.lifecycleScope?.launch {
 ### 정리
 사용처에 따른 API를 매치하고 마무리하겠습니다.
 
-* Activity, Fragment — `lifecycleScope`
-* View (in ⍺)— `ViewTreeLifecycleOwner` + `lifecycleScope`
-* ViewModel — `viewModelScope`
-* Service — `LifecycleService` + `lifecycleScope`
-* Application — `ProcessLifecycleOwner` + `lifecycleScope`
+* Activity, Fragment — <pre>lifecycleScope</pre>
+* View (in ⍺)— <pre>ViewTreeLifecycleOwner</pre> + <pre>lifecycleScope</pre>
+* ViewModel — <pre>viewModelScope</pre>
+* Service — <pre>LifecycleService</pre> + <pre>lifecycleScope</pre>
+* Application — <pre>ProcessLifecycleOwner</pre> + <pre>lifecycleScope</pre>
