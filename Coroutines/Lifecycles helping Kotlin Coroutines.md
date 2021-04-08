@@ -71,3 +71,49 @@ class MyService : <b>LifecycleService()</b> {
   }
 }
 </pre>
+
+### ProcessLifecycleOwner
+더 나아가 Application 전역으로 처리하고 싶은 경우도 있을 수 있는데요.  
+Kotlin에서 제공하는 [GlobalScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/)를 사용해야 하나, 아니면 항상 WorkManager와 같은 대체 API를 이용해야 하나 고민이 됩니다.
+
+이런 경우에 사용할 수 있는 LifecycleOwner가 제공됩니다.  
+사용하려면 확장 라이브러리를 추가로 설치해야 합니다.
+
+<pre>
+implementation "androidx.lifecycle:<b>lifecycle-process</b>:$version"
+</pre>
+
+<pre>
+<b>ProcessLifecycleOwner</b>.get()<b><i>.lifecycleScope.</i></b>launch {
+    doSomething()
+}
+</pre>
+
+### ViewTreeLifecycleOwner (alpha)
+마지막으로 **View**에서도 LifecycleOwner가 제공됩니다.  
+사용하려면 라이브러리 버전을 올려야 합니다.
+
+<pre>
+implementation "androidx.lifecycle:<b>lifecycle-runtime:2.3.0</b>-alpha07"
+</pre>
+
+정확하게는 View의 Lifecycle이 아닌, View가 붙어있는 Activity/Fragment의 Lifecycle을 가져옵니다. 따라서 View가 attach되지 않은 경우에는 `null`이 반환될 수 있습니다.
+
+<pre>
+<b>ViewTreeLifecycleOwner</b>.get(view)?.lifecycleScope?.launch {
+    doSomething()
+}
+
+// Using KTX
+view.<b><i>findViewTreeLifecycleOwner</i></b>()?.lifecycleScope?.launch {
+    doSomething()
+}
+</pre>
+
+### 정리
+사용처에 따른 API를 매치하고 마무리하겠습니다.
+* Activity, Fragment — `lifecycleScope`
+* View (in ⍺)— `ViewTreeLifecycleOwner` + `lifecycleScope`
+* ViewModel — `viewModelScope`
+* Service — `LifecycleService` + `lifecycleScope`
+* Application — `ProcessLifecycleOwner` + `lifecycleScope`
