@@ -49,3 +49,25 @@ class MyFragment : Fragment() {
   }
 }
 </pre>
+
+### LifecycleService
+간혹 Background 작업이 필요한 경우도 있는데요. WorkManager를 사용하는 경우에는 CoroutineWorker를 지원하므로 손쉽게 사용할 수 있겠지만, Service는 Platform API라서 CoroutineScope를 직접 관리해야만 할 것 같습니다.
+
+다행히도 AndroidX Lifecycle에서는 Service도 지원하고 있습니다. 👏 LifecycleService는 LifecycleOwner를 구현한 Service 확장 클래스입니다.
+사용하려면 아래처럼 확장 라이브러리를 추가로 설치해야 합니다.
+
+<pre>
+implementation "androidx.lifecycle:<b>lifecycle-service</b>:$version"
+</pre>
+
+기존에 사용하던 Service를 **LifecycleService**로 변경한 후, ***lifecycleScope***를 사용하면 됩니다.
+
+<pre>
+class MyService : <b>LifecycleService()</b> {
+  private fun method() {
+    <b><i>lifecycleScope.</i></b>launch {
+      doSomething()
+    }
+  }
+}
+</pre>
