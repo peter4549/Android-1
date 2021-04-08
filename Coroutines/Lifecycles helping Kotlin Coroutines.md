@@ -9,6 +9,8 @@ Android에는 Lifecycle이 있어서, 앱 종료 / 화면 전환 등으로 더�
 ## AndroidX Lifecycle
 Lifecycle은 Android Platform에서 직접 제공하는 라이브러리로, KTX에서는 다양한 컴포넌트들의 Lifecycle과 연동되는 CoroutineScope를 제공합니다.
 
+![https://miro.medium.com/max/1400/1*RLQ4Ue-togVAUKSlDPmQqw.png](https://miro.medium.com/max/1400/1*RLQ4Ue-togVAUKSlDPmQqw.png)
+
 ### ViewModelScope
 ViewModel에서 사용할 수 있는 CoroutineScope입니다.  
 사용하려면 아래처럼 KTX 라이브러리를 설치해야 합니다.
