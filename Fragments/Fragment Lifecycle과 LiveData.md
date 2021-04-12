@@ -6,7 +6,7 @@
   <img src="https://developer.android.com/images/topic/libraries/architecture/lifecycle-states.svg" />
 </p>
       
-> 출처:https://developer.android.com/topic/libraries/architecture/lifecycle
+> 출처 : https://developer.android.com/topic/libraries/architecture/lifecycle
 
 ### 현실의 생명주기 흐름
 
@@ -14,7 +14,7 @@
   <img src="https://miro.medium.com/max/694/1*ALMDBkuAAZ28BJ2abmvniA.png" />
 </p>
 
-> 출처:[The Android Lifecycle cheat sheet — part III : Fragments](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
+> 출처 : [The Android Lifecycle cheat sheet — part III : Fragments](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
 
 > https://github.com/xxv/android-lifecycle/blob/master/complete_android_fragment_lifecycle.png?raw=true 
 
@@ -59,7 +59,7 @@ viewModel.isUpdate.observe(this, Observer<Boolean> {
   <img src="https://miro.medium.com/max/1596/1*hK_YRdty1GoafABfug-r4g.png" />
 </p>
 
-> 출처:[The Android Lifecycle cheat sheet — part III : Fragments](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
+> 출처 : [The Android Lifecycle cheat sheet — part III : Fragments](https://medium.com/androiddevelopers/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
 
 위 이미지에서 볼 수 있는 것처럼 Fragment는 Actvitiy와 다르게 `onDestroy` 가 호출되지 않은 상태에서 `onCreateView` 가 여러 번 호출될 수 있습니다. 이로 인해 Fragment의 Lifecycle은 Destroy 되지 않은 상황에서 LiveData에 새로운 Observer가 등록되어 복수의 Observer가 호출되는 현상이 발생할 가능성이 있습니다.
 
@@ -124,3 +124,25 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 아래 영상은 I/O ‘19 what’s new in Architecture Components 세션이며 Fragment와 LiveData 사용에 필요한 Lifecycle에 대해서 언급하고 있습니다.
 
 [![pErTyQpA390](https://img.youtube.com/vi/pErTyQpA390/maxresdefault.jpg)](https://youtu.be/pErTyQpA390)
+
+## Updated, Fragment 1.2.0
+FragmentContainerView, ViewModel, FragmentManager 등 몇 가지 변화가 되었습니다. 그중 이번 글과 관련된 기능 하나가 추가되었습니다.
+
+> 링크 : [Fragment 1.2.0 Release note](https://developer.android.com/jetpack/androidx/releases/fragment#1.2.0)
+
+#### Fragment Version 1.2.0
+
+* **New Lint checks**: Added a new Lint check that ensures you are using `getViewLifecycleOwner()` when observing `LiveData` from `onCreateView()`, `onViewCreated()`, or `onActivityCreated()`.
+
+Fragment 1.2.0부터 새로운 Lint가 추가되었습니다. onCreateView(), onViewCreated(), onActivityCreated()에서 LiveData 사용 시에는 ViewLifecycleOwner를 사용하도록 권장하는 것입니다.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/80195353/114423249-f7b21980-9bf1-11eb-90fc-3d89dde92aa5.png" />
+</p>
+
+LiveData#observe에서 this를 사용하는 경우 위와 같은 메시지를 경험합니다. 빨간 밑줄과 안내 메시지가 노출되지만, 빌드 실패는 아닙니다. 이제 우리가 해야 할 일은 바로 Fragment View Lifecycle 객체를 반환하는 `viewLifecycleOwner`를 사용하는 것입니다.
+
+> 위에서 언급한 Fragment에서 LiveData#observe 사용에 관한 Lint 구현이 궁금하신 분은 아래 링크를 참고하세요.  
+> https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/fragment/fragment-lint/src/main/java/androidx/fragment/lint/UnsafeFragmentLifecycleObserverDetector.kt
+
+
