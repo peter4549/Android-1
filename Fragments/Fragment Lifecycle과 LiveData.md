@@ -142,7 +142,7 @@ Fragment 1.2.0부터 새로운 Lint가 추가되었습니다. onCreateView(), on
 
 LiveData#observe에서 this를 사용하는 경우 위와 같은 메시지를 경험합니다. 빨간 밑줄과 안내 메시지가 노출되지만, 빌드 실패는 아닙니다. 이제 우리가 해야 할 일은 바로 Fragment View Lifecycle 객체를 반환하는 `viewLifecycleOwner`를 사용하는 것입니다.
 
-> 위에서 언급한 Fragment에서 LiveData#observe 사용에 관한 Lint 구현이 궁금하신 분은 아래 링크를 참고하세요.  
+> 위에서 언급한 Fragment에서 LiveData#observe 사용에 관한 Lint 구현이 궁금하신 분은 아래 링크를 참고하세요.
 > 
 > https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/fragment/fragment-lint/src/main/java/androidx/fragment/lint/UnsafeFragmentLifecycleObserverDetector.kt
 
