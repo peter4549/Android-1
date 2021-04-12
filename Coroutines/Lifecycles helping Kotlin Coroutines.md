@@ -26,7 +26,7 @@ ViewModel을 사용하지 않는다면, LifecycleScope를 고려해볼 수 있�
 사용하려면 아래처럼 KTX 라이브러리를 설치해야 합니다.
 
 <pre>
-implementation "androidx.lifecycle:<b>lifecycle-viewmodel-ktx</b>:$version"
+implementation "androidx.lifecycle:<b>lifecycle-runtime-ktx</b>:$version"
 </pre>
 
 `DESTROYED` 상태가 되면 중지됩니다.
