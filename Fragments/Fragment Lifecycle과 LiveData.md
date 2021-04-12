@@ -123,4 +123,4 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 ## Lifecycle 문제에 대한 자세한 발표 영상
 아래 영상은 I/O ‘19 what’s new in Architecture Components 세션이며 Fragment와 LiveData 사용에 필요한 Lifecycle에 대해서 언급하고 있습니다.
 
-[![pErTyQpA390](https://img.youtube.com/vi/T-pErTyQpA390/maxresdefault.jpg)](https://youtu.be/pErTyQpA390)
+[![pErTyQpA390](https://img.youtube.com/vi/T-pErTyQpA390/default.jpg)](https://youtu.be/pErTyQpA390)
