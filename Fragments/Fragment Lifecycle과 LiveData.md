@@ -93,3 +93,33 @@ creation, destruction, and recreation).
 
 > 링크 : https://android.googlesource.com/platform/frameworks/support/+/eb89fcf1decf9044f53330ea4bb689d25d2328b1%5E%21/fragment/src/main/java/androidx/fragment/app/Fragment.java
 
+Fragment는 Fragment View보다 긴 생명주기를 가지며, 일반적으로 UI를 업데이트용으로는 `Fragment View Lifecycle` 이 적절합니다. 그리고, Fragment View Lifecycle 도입으로 LiveData#observe에서 사용하는 Observer 중복 호출 문제도 해결할 수 있습니다. Fragment 사용 시 데이터 갱신에 대한 Lifecycle을 Fragment Lifecycle보다 Fragment View Lifecycle이 올바르다고 언급하고 있습니다.
+
+* Fragment Lifecycle : Create ~ Destroy
+* Fragment View Lifecycle : createView ~ destoryView
+
+### 올바른 Fragment에서 LiveData 사용
+
+```
+// Bad 
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+   viewModel.liveData.observe(this, Observer {
+      // Update UI
+   })
+}
+```
+
+기존 LiveData 사용에서 바뀌는 부분은 liveData를 observe 함수의 첫 번째 파라미터를 this에서 viewLifecycleOwner를 호출하도록 수정하면 됩니다.
+
+```
+// Good 
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+   viewModel.liveData.observe(viewLifecycleOwner, Observer {
+      // Update UI
+   })
+}
+```
+
+## Lifecycle 문제에 대한 자세한 발표 영상
+아래 영상은 I/O ‘19 what’s new in Architecture Components 세션이며 Fragment와 LiveData 사용에 필요한 Lifecycle에 대해서 언급하고 있습니다.
+https://youtu.be/pErTyQpA390
