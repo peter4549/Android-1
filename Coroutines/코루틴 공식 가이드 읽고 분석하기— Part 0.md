@@ -1,7 +1,7 @@
 # [코루틴 공식 가이드 읽고 분석하기— Part 0](https://myungpyo.medium.com/reading-coroutine-official-guide-thoroughly-part-0-20176d431e9d)
 Coroutine
 * Part-1 (Basics)
-- 공식 가이드 읽기 (한국어 번역)
+  - 공식 가이드 읽기 (한국어 번역)
 - 관련 기술 분석
 + CoroutineContext 와 CoroutineScope 란 무엇인가?
 + 코루틴은 왜 스레드보다 가볍다고 할까?
